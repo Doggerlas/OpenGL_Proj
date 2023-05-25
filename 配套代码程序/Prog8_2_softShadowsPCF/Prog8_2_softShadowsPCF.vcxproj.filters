@@ -18,13 +18,13 @@
     <ClCompile Include="..\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog8_2_softShadowsPCF\ImportedModel.cpp">
+    <ClCompile Include="ImportedModel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog8_2_softShadowsPCF\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog8_2_softShadowsPCF\Torus.cpp">
+    <ClCompile Include="Torus.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClInclude Include="..\Utils.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog8_2_softShadowsPCF\ImportedModel.h">
+    <ClInclude Include="ImportedModel.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog8_2_softShadowsPCF\Torus.h">
+    <ClInclude Include="Torus.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

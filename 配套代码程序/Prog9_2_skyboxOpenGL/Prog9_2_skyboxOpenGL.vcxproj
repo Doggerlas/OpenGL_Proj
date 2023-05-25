@@ -127,13 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\配套代码\Prog9_2_skyboxOpenGL\main.cpp" />
-    <ClCompile Include="..\..\配套代码\Prog9_2_skyboxOpenGL\Torus.cpp" />
     <ClCompile Include="..\Utils.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Torus.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\配套代码\Prog9_2_skyboxOpenGL\Torus.h" />
     <ClInclude Include="..\Utils.h" />
+    <ClInclude Include="Torus.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

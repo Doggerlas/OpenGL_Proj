@@ -127,13 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\配套代码\Prog6_3_objLoaderShuttle\ImportedModel.cpp" />
-    <ClCompile Include="..\..\配套代码\Prog6_3_objLoaderShuttle\main.cpp" />
     <ClCompile Include="..\Utils.cpp" />
+    <ClCompile Include="ImportedModel.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\配套代码\Prog6_3_objLoaderShuttle\ImportedModel.h" />
     <ClInclude Include="..\Utils.h" />
+    <ClInclude Include="ImportedModel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

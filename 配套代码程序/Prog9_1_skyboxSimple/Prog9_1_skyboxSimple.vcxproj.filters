@@ -21,7 +21,7 @@
     <ClCompile Include="..\..\配套代码\Prog9_1_skyboxSimple\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog9_1_skyboxSimple\Torus.cpp">
+    <ClCompile Include="Torus.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="..\Utils.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog9_1_skyboxSimple\Torus.h">
+    <ClInclude Include="Torus.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

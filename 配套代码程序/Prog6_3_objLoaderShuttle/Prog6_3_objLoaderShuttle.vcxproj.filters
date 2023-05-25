@@ -18,10 +18,10 @@
     <ClCompile Include="..\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog6_3_objLoaderShuttle\ImportedModel.cpp">
+    <ClCompile Include="ImportedModel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog6_3_objLoaderShuttle\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="..\Utils.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog6_3_objLoaderShuttle\ImportedModel.h">
+    <ClInclude Include="ImportedModel.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

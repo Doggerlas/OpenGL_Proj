@@ -127,15 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\配套代码\Prog8_1_shadowMapping\ImportedModel.cpp" />
-    <ClCompile Include="..\..\配套代码\Prog8_1_shadowMapping\main.cpp" />
-    <ClCompile Include="..\..\配套代码\Prog8_1_shadowMapping\Torus.cpp" />
     <ClCompile Include="..\Utils.cpp" />
+    <ClCompile Include="ImportedModel.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Torus.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\配套代码\Prog8_1_shadowMapping\ImportedModel.h" />
-    <ClInclude Include="..\..\配套代码\Prog8_1_shadowMapping\Torus.h" />
     <ClInclude Include="..\Utils.h" />
+    <ClInclude Include="ImportedModel.h" />
+    <ClInclude Include="Torus.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

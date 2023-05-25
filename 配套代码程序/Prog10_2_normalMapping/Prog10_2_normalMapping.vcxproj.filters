@@ -18,12 +18,18 @@
     <ClCompile Include="..\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\..\配套代码\Prog10_2_normalMapping\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\配套代码\Prog10_2_normalMapping\Sphere.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Utils.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\配套代码\Prog10_2_normalMapping\Sphere.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,13 +18,13 @@
     <ClCompile Include="..\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog8_1_shadowMapping\ImportedModel.cpp">
+    <ClCompile Include="ImportedModel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog8_1_shadowMapping\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog8_1_shadowMapping\Torus.cpp">
+    <ClCompile Include="Torus.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClInclude Include="..\Utils.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog8_1_shadowMapping\ImportedModel.h">
+    <ClInclude Include="ImportedModel.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog8_1_shadowMapping\Torus.h">
+    <ClInclude Include="Torus.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
