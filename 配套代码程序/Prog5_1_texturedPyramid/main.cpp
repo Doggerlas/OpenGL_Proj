@@ -44,14 +44,14 @@ void setupVertices(void) {
 		0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
 		0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
-	};
+	};//顶点的纹理坐标
 	glGenVertexArrays(1, vao);
 	glBindVertexArray(vao[0]);
 	glGenBuffers(numVBOs, vbo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(pyramidPositions), pyramidPositions, GL_STATIC_DRAW);
-
+	//将纹理坐标载入缓冲区
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(textureCoordinates), textureCoordinates, GL_STATIC_DRAW);
 }
@@ -66,7 +66,7 @@ void init(GLFWwindow* window) {
 	aspect = (float)width / (float)height;
 	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f);
 
-	brickTexture = Utils::loadTexture("brick1.jpg");
+	brickTexture = Utils::loadTexture("brick1.jpg");//加载纹理对象
 	// SEE Utils.cpp, the "loadTexture()" function, the code before the mipmapping section
 }
 
@@ -100,7 +100,7 @@ void display(GLFWwindow* window, double currentTime) {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(1);
-
+	//激活纹理单元并将其绑定到特定的纹理对象
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, brickTexture);
 

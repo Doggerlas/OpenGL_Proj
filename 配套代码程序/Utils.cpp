@@ -177,7 +177,9 @@ GLuint Utils::loadCubeMap(const char *mapDir) {
 	//	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	return textureRef;
 }
-
+// 创建纹理对象
+// texImagePath 贴图路径
+// 返回：纹理对象ID
 GLuint Utils::loadTexture(const char *texImagePath)
 {
 	GLuint textureRef;
