@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1972
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_Project", "OpenGL_Project\OpenGL_Project.vcxproj", "{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Prog2_1_background", "配套代码程序\Prog2_1_background\Prog2_1_background.vcxproj", "{F34923E5-2863-41CC-AE97-C7E80A9CF115}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Prog2_2_point", "配套代码程序\Prog2_2_point\Prog2_2_point.vcxproj", "{79A829C9-20D3-4A6A-938B-2ACDBDD76003}"
@@ -63,14 +61,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}.Debug|x64.ActiveCfg = Debug|x64
-		{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}.Debug|x64.Build.0 = Debug|x64
-		{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}.Debug|x86.ActiveCfg = Debug|Win32
-		{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}.Debug|x86.Build.0 = Debug|Win32
-		{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}.Release|x64.ActiveCfg = Release|x64
-		{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}.Release|x64.Build.0 = Release|x64
-		{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}.Release|x86.ActiveCfg = Release|Win32
-		{49D44B59-2CD2-4622-BDA8-6F8FD7EB0862}.Release|x86.Build.0 = Release|Win32
 		{F34923E5-2863-41CC-AE97-C7E80A9CF115}.Debug|x64.ActiveCfg = Debug|x64
 		{F34923E5-2863-41CC-AE97-C7E80A9CF115}.Debug|x64.Build.0 = Debug|x64
 		{F34923E5-2863-41CC-AE97-C7E80A9CF115}.Debug|x86.ActiveCfg = Debug|Win32
