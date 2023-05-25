@@ -127,13 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\配套代码\Prog10_4_2_sphereVertexHeightMap\main.cpp" />
-    <ClCompile Include="..\..\配套代码\Prog10_4_2_sphereVertexHeightMap\Sphere.cpp" />
     <ClCompile Include="..\Utils.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\配套代码\Prog10_4_2_sphereVertexHeightMap\Sphere.h" />
     <ClInclude Include="..\Utils.h" />
+    <ClInclude Include="Sphere.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

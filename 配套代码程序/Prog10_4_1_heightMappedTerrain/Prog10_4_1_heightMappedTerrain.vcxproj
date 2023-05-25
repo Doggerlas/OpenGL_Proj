@@ -127,13 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\配套代码\Prog10_4_1_heightMappedTerrain\ImportedModel.cpp" />
-    <ClCompile Include="..\..\配套代码\Prog10_4_1_heightMappedTerrain\main.cpp" />
     <ClCompile Include="..\Utils.cpp" />
+    <ClCompile Include="ImportedModel.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\配套代码\Prog10_4_1_heightMappedTerrain\ImportedModel.h" />
     <ClInclude Include="..\Utils.h" />
+    <ClInclude Include="ImportedModel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

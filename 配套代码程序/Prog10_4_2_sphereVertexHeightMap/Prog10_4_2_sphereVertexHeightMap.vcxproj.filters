@@ -18,10 +18,10 @@
     <ClCompile Include="..\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog10_4_2_sphereVertexHeightMap\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog10_4_2_sphereVertexHeightMap\Sphere.cpp">
+    <ClCompile Include="Sphere.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="..\Utils.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog10_4_2_sphereVertexHeightMap\Sphere.h">
+    <ClInclude Include="Sphere.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

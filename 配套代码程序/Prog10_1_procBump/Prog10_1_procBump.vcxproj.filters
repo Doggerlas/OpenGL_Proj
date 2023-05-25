@@ -18,10 +18,10 @@
     <ClCompile Include="..\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog10_1_procBump\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog10_1_procBump\Torus.cpp">
+    <ClCompile Include="Torus.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="..\Utils.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog10_1_procBump\Torus.h">
+    <ClInclude Include="Torus.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

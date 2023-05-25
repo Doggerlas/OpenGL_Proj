@@ -18,10 +18,10 @@
     <ClCompile Include="..\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog9_1_skyboxSimple\main.cpp">
+    <ClCompile Include="Torus.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Torus.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

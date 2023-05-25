@@ -127,8 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\配套代码\Prog9_1_skyboxSimple\main.cpp" />
     <ClCompile Include="..\Utils.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Torus.cpp" />
   </ItemGroup>
   <ItemGroup>

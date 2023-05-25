@@ -18,10 +18,10 @@
     <ClCompile Include="..\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog10_4_1_heightMappedTerrain\ImportedModel.cpp">
+    <ClCompile Include="ImportedModel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\配套代码\Prog10_4_1_heightMappedTerrain\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="..\Utils.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\配套代码\Prog10_4_1_heightMappedTerrain\ImportedModel.h">
+    <ClInclude Include="ImportedModel.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
