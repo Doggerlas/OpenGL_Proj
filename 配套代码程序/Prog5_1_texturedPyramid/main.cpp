@@ -102,7 +102,7 @@ void display(GLFWwindow* window, double currentTime) {
 	glEnableVertexAttribArray(1);
 	//激活纹理单元并将其绑定到特定的纹理对象
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, brickTexture);
+	glBindTextureglBindTexture(GL_TEXTURE_2D, brickTexture);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);

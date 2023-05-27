@@ -187,8 +187,8 @@ GLuint Utils::loadTexture(const char *texImagePath)
 	if (textureRef == 0) cout << "didnt find texture file " << texImagePath << endl;
 	// ----- mipmap/anisotropic section
 	glBindTexture(GL_TEXTURE_2D, textureRef);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);//构建多级渐远纹理,采样方式为三线性过滤
+	glGenerateMipmap(GL_TEXTURE_2D);//启用多级渐远纹理
 	if (glewIsSupported("GL_EXT_texture_filter_anisotropic")) {
 		GLfloat anisoset = 0.0f;
 		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &anisoset);
