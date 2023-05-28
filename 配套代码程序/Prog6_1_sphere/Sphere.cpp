@@ -13,7 +13,7 @@ Sphere::Sphere(int prec) {
 	init(prec);
 }
 
-float Sphere::toRadians(float degrees) { return (degrees * 2.0f * 3.14159f) / 360.0f; }
+float Sphere::toRadians(float degrees) { return (degrees * 2.0f * 3.14159f) / 360.0f; }//精度
 
 void Sphere::init(int prec) {
 	numVertices = (prec + 1) * (prec + 1);
@@ -24,7 +24,7 @@ void Sphere::init(int prec) {
 	for (int i = 0; i < numVertices; i++) { tangents.push_back(glm::vec3()); }
 	for (int i = 0; i < numIndices; i++) { indices.push_back(0); }
 
-	// calculate triangle vertices
+	// 计算三角形顶点
 	for (int i = 0; i <= prec; i++) {
 		for (int j = 0; j <= prec; j++) {
 			float y = (float)cos(toRadians(180.0f - i * 180.0f / prec));
@@ -34,7 +34,7 @@ void Sphere::init(int prec) {
 			texCoords[i*(prec + 1) + j] = glm::vec2(((float)j / prec), ((float)i / prec));
 			normals[i*(prec + 1) + j] = glm::vec3(x, y, z);
 
-			// calculate tangent vector
+			// 计算切向量
 			if (((x == 0) && (y == 1) && (z == 0)) || ((x == 0) && (y == -1) && (z == 0))) {
 				tangents[i*(prec + 1) + j] = glm::vec3(0.0f, 0.0f, -1.0f);
 			}
@@ -43,7 +43,7 @@ void Sphere::init(int prec) {
 			}
 		}
 	}
-	// calculate triangle indices
+	// 计算三角形索引
 	for (int i = 0; i<prec; i++) {
 		for (int j = 0; j<prec; j++) {
 			indices[6 * (i*prec + j) + 0] = i*(prec + 1) + j;

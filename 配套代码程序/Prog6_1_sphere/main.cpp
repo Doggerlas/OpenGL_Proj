@@ -29,7 +29,7 @@ int width, height;
 float aspect;
 glm::mat4 pMat, vMat, mMat, mvMat;
 
-Sphere mySphere = Sphere(48);
+Sphere mySphere = Sphere(48); //球形切片的数量和每个切片中的顶点数量 顶点的总数是(48+1) * (48+1) 索引的总数是prec * prec * 6
 
 void setupVertices(void) {
 	std::vector<int> ind = mySphere.getIndices();
