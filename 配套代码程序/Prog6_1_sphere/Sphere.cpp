@@ -6,14 +6,14 @@
 using namespace std;
 
 Sphere::Sphere() {
-	init(48);
+	init(48);//// prec是精度，也就是切片的数量
 }
 
 Sphere::Sphere(int prec) {
 	init(prec);
 }
 
-float Sphere::toRadians(float degrees) { return (degrees * 2.0f * 3.14159f) / 360.0f; }//精度
+float Sphere::toRadians(float degrees) { return (degrees * 2.0f * 3.14159f) / 360.0f; }
 
 void Sphere::init(int prec) {
 	numVertices = (prec + 1) * (prec + 1);

@@ -6,9 +6,9 @@
 using namespace std;
 
 Torus::Torus() {
-	prec = 48;
-	inner = 0.5f;
-	outer = 0.2f;
+	prec = 48;//精度
+	inner = 0.5f;//内半径
+	outer = 0.2f;//外半径
 	init();
 }
 
@@ -31,7 +31,7 @@ void Torus::init() {
 	for (int i = 0; i < numVertices; i++) { tTangents.push_back(glm::vec3()); }
 	for (int i = 0; i < numIndices; i++) { indices.push_back(0); }
 
-	// calculate first ring
+	//计算第一个圆环
 	for (int i = 0; i < prec + 1; i++) {
 		float amt = toRadians(i*360.0f / prec);
 
@@ -39,36 +39,39 @@ void Torus::init() {
 		glm::vec3 initPos(rMat * glm::vec4(outer, 0.0f, 0.0f, 1.0f));
 
 		vertices[i] = glm::vec3(initPos + glm::vec3(inner, 0.0f, 0.0f));
+		// 为环上的每个顶点计算纹理坐标
 		texCoords[i] = glm::vec2(0.0f, ((float)i / (float)prec));
 
 		rMat = glm::rotate(glm::mat4(1.0f), amt, glm::vec3(0.0f, 0.0f, 1.0f));
-		tTangents[i] = glm::vec3(rMat * glm::vec4(0.0f, -1.0f, 0.0f, 1.0f));
+		//计算了两个切向量（Baker称为sTangent和tTangent，尽管通常称为“切向量（tangent）”和“副切向量（bitangent）”），它们的叉乘积形成法向量
+		tTangents[i] = glm::vec3(rMat * glm::vec4(0.0f, -1.0f, 0.0f, 1.0f));// 计算切向量和法向量，第一个切向量是绕Z轴旋转的Y轴
 
-		sTangents[i] = glm::vec3(glm::vec3(0.0f, 0.0f, -1.0f));
-		normals[i] = glm::cross(tTangents[i], sTangents[i]);
+		sTangents[i] = glm::vec3(glm::vec3(0.0f, 0.0f, -1.0f));// 第二个切向量是 -Z 轴
+		normals[i] = glm::cross(tTangents[i], sTangents[i]);// 它们的叉乘积就是法向量
 	}
-	// rotate the first ring about Y to get the other rings
+	// 绕原点旋转点，形成环，然后将它们向外移动
 	for (int ring = 1; ring < prec + 1; ring++) {
 		for (int i = 0; i < prec + 1; i++) {
+			// 绕Y轴旋转最初那个环的顶点坐标
 			float amt = (float)toRadians((float)ring * 360.0f / (prec));
 
 			glm::mat4 rMat = glm::rotate(glm::mat4(1.0f), amt, glm::vec3(0.0f, 1.0f, 0.0f));
 			vertices[ring*(prec + 1) + i] = glm::vec3(rMat * glm::vec4(vertices[i], 1.0f));
-
+			// 计算新环顶点的纹理坐标
 			texCoords[ring*(prec + 1) + i] = glm::vec2((float)ring*2.0f / (float)prec, texCoords[i].t);
 			if (texCoords[ring*(prec + 1) + i].s > 1.0) texCoords[ring*(prec+1)+i].s -= 1.0f;
-
+			// 绕Y轴旋转切向量和副切向量
 			rMat = glm::rotate(glm::mat4(1.0f), amt, glm::vec3(0.0f, 1.0f, 0.0f));
 			sTangents[ring*(prec + 1) + i] = glm::vec3(rMat * glm::vec4(sTangents[i], 1.0f));
-
+			// 绕Y轴旋转法向量
 			rMat = glm::rotate(glm::mat4(1.0f), amt, glm::vec3(0.0f, 1.0f, 0.0f));
 			tTangents[ring*(prec + 1) + i] = glm::vec3(rMat * glm::vec4(tTangents[i], 1.0f));
-
+			
 			rMat = glm::rotate(glm::mat4(1.0f), amt, glm::vec3(0.0f, 1.0f, 0.0f));
 			normals[ring*(prec + 1) + i] = glm::vec3(rMat * glm::vec4(normals[i], 1.0f));
 		}
 	}
-	// calculate triangle indices
+	// 按照逐个顶点的两个三角形，计算三角形索引
 	for (int ring = 0; ring < prec; ring++) {
 		for (int i = 0; i < prec; i++) {
 			indices[((ring*prec + i) * 2) * 3 + 0] = ring*(prec + 1) + i;
@@ -80,6 +83,7 @@ void Torus::init() {
 		}
 	}
 }
+// 环面索引和顶点的访问函数
 int Torus::getNumVertices() { return numVertices; }
 int Torus::getNumIndices() { return numIndices; }
 std::vector<int> Torus::getIndices() { return indices; }

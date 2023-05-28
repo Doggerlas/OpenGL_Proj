@@ -32,7 +32,7 @@ glm::mat4 pMat, vMat, mMat, mvMat;
 Torus myTorus(0.5f, 0.2f, 48);
 
 void setupVertices(void) {
-	std::vector<int> ind = myTorus.getIndices();
+	std::vector<int> ind = myTorus.getIndices();//将索引数组复制到整型的C++向量
 	std::vector<glm::vec3> vert = myTorus.getVertices();
 	std::vector<glm::vec2> tex = myTorus.getTexCoords();
 	std::vector<glm::vec3> norm = myTorus.getNormals();
@@ -56,7 +56,7 @@ void setupVertices(void) {
 	glGenBuffers(numVBOs, vbo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-	glBufferData(GL_ARRAY_BUFFER, pvalues.size() * 4, &pvalues[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, pvalues.size() * 4, &pvalues[0], GL_STATIC_DRAW);//这里为什么要*4
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
 	glBufferData(GL_ARRAY_BUFFER, tvalues.size() * 4, &tvalues[0], GL_STATIC_DRAW);
@@ -64,8 +64,8 @@ void setupVertices(void) {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
 	glBufferData(GL_ARRAY_BUFFER, nvalues.size() * 4, &nvalues[0], GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[3]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, ind.size() * 4, &ind[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[3]); //使用OpenGL索引时，需要将索引本身加载到VBO中。生成一个额外的VBO用于保存索引
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, ind.size() * 4, &ind[0], GL_STATIC_DRAW);//将向量加载到新增的VBO 指定VBO的类型为 `GL_ELEMENT_ARRAY_BUFFER`（告诉OpenGL这个VBO包含索引）
 }
 
 void init(GLFWwindow* window) {
@@ -115,8 +115,8 @@ void display(GLFWwindow* window, double currentTime) {
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CCW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[3]);
-	glDrawElements(GL_TRIANGLES, myTorus.getIndices().size(), GL_UNSIGNED_INT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[3]);//启用包含索引的VBO，指定哪个VBO包含索引并且是`GL_ELEMENT_ARRAY_BUFFER类型
+	glDrawElements(GL_TRIANGLES, myTorus.getIndices().size(), GL_UNSIGNED_INT, 0);//将`glDrawArrays()`调用替换为 `glDrawElements()`调用 告诉OpenGL利用索引VBO来查找要绘制的顶点
 }
 
 void window_size_callback(GLFWwindow* win, int newWidth, int newHeight) {

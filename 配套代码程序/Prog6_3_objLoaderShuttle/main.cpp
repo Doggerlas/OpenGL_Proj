@@ -27,7 +27,7 @@ GLuint mvLoc, projLoc;
 int width, height;
 float aspect;
 glm::mat4 pMat, vMat, mMat, mvMat;
-
+// 在顶层声明中使用模型导入器
 ImportedModel myModel("shuttle.obj");
 
 float toRadians(float degrees) { return (degrees * 2.0f * 3.14159f) / 360.0f; }

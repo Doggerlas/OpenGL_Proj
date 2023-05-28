@@ -37,9 +37,9 @@ void setupVertices(void) {
 	std::vector<glm::vec2> tex = mySphere.getTexCoords();
 	std::vector<glm::vec3> norm = mySphere.getNormals();
 
-	std::vector<float> pvalues;
-	std::vector<float> tvalues;
-	std::vector<float> nvalues;
+	std::vector<float> pvalues;// 顶点位置
+	std::vector<float> tvalues;// 纹理坐标
+	std::vector<float> nvalues;// 法向量
 
 	int numIndices = mySphere.getNumIndices();
 	for (int i = 0; i < numIndices; i++) {
