@@ -2,9 +2,9 @@
 
 layout (location = 0) in vec3 vertPos;
 layout (location = 1) in vec3 vertNormal;
-out vec3 varyingNormal;
-out vec3 varyingLightDir;
-out vec3 varyingVertPos;
+out vec3 varyingNormal;// 视觉空间顶点法向量
+out vec3 varyingLightDir;// 指向光源的向量
+out vec3 varyingVertPos;// 视觉空间中的顶点位置
 
 struct PositionalLight
 {	vec4 ambient;
@@ -27,7 +27,9 @@ uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 
 void main(void)
-{	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
+{	
+	// 输出顶点位置、光照方向和法向量到光栅器以进行插值
+	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
 	varyingLightDir = light.position - varyingVertPos;
 	varyingNormal = (norm_matrix * vec4(vertNormal,1.0)).xyz;
 

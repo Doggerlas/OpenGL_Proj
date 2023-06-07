@@ -3,8 +3,8 @@
 in vec4 varyingColor;
 out vec4 fragColor;
 
-//  uniforms match those in the vertex shader,
-//  but aren抰 used directly in this fragment shader
+//  与顶点着色器相同的统一变量
+//  但并不直接在当前片段着色器使用
 
 struct PositionalLight
 {	vec4 ambient;  

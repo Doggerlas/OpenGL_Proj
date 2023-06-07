@@ -28,21 +28,21 @@ uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 
 void main(void)
-{	// normalize the light, normal, and view vectors:
+{	// 正规化光照向量、法向量、视觉向量
 	vec3 L = normalize(varyingLightDir);
 	vec3 N = normalize(varyingNormal);
 	vec3 V = normalize(-varyingVertPos);
 	
-	// compute light reflection vector, with respect N:
+	// 计算光照向量基于N的反射向量
 	vec3 R = normalize(reflect(-L, N));
 	
-	// get the angle between the light and surface normal:
+	// 计算光照与平面法向量间的角度
 	float cosTheta = dot(L,N);
 	
-	// angle between the view vector and reflected light:
+	// 计算视觉向量与反射光向量的角度
 	float cosPhi = dot(V,R);
 
-	// compute ADS contributions (per pixel):
+	// 计算ADS分量(按像素)，并合并以构建输出颜色
 	vec3 ambient = ((globalAmbient * material.ambient) + (light.ambient * material.ambient)).xyz;
 	vec3 diffuse = light.diffuse.xyz * material.diffuse.xyz * max(cosTheta,0.0);
 	vec3 specular = light.specular.xyz * material.specular.xyz * pow(max(cosPhi,0.0), material.shininess);

@@ -5,7 +5,7 @@ layout (location = 1) in vec3 vertNormal;
 out vec3 varyingNormal;
 out vec3 varyingLightDir;
 out vec3 varyingVertPos;
-out vec3 varyingHalfVector;
+out vec3 varyingHalfVector;// 角平分线向量 H 作为新增的输出
 
 struct PositionalLight
 {	vec4 ambient;
@@ -28,10 +28,12 @@ uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 
 void main(void)
-{	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
+{	
+	//Blinn-Phong着色算法
+	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
 	varyingLightDir = light.position - varyingVertPos;
 	varyingNormal = (norm_matrix * vec4(vertNormal,1.0)).xyz;
-	
+	// 与之前的计算相同，增加了L+V的计算
 	varyingHalfVector =
 		normalize(normalize(varyingLightDir)
 		+ normalize(-varyingVertPos)).xyz;

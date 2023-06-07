@@ -29,25 +29,23 @@ uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 
 void main(void)
-{	// normalize the light, normal, and view vectors:
+{	// 注意，现在已经不需要在片段着色器中计算R
 	vec3 L = normalize(varyingLightDir);
 	vec3 N = normalize(varyingNormal);
 	vec3 V = normalize(-varyingVertPos);
 	
-	// get the angle between the light and surface normal:
+	// 计算L与角平分线向量H之间的角度
 	float cosTheta = dot(L,N);
 	
-	// halfway vector varyingHalfVector was computed in the vertex shader,
-	// and interpolated prior to reaching the fragment shader.
-	// It is copied into variable H here for convenience later.
+	// 角平分线向量H已经在顶点着色器中计算过，并在光栅器中进行过插值
 	vec3 H = normalize(varyingHalfVector);
 	
-	// get angle between the normal and the halfway vector
+	// 计算法向量N与角平分线向量H之间的角度
 	float cosPhi = dot(H,N);
 
-	// compute ADS contributions (per pixel):
+	// 计算逐像素的ADS分布
 	vec3 ambient = ((globalAmbient * material.ambient) + (light.ambient * material.ambient)).xyz;
 	vec3 diffuse = light.diffuse.xyz * material.diffuse.xyz * max(cosTheta,0.0);
-	vec3 specular = light.specular.xyz * material.specular.xyz * pow(max(cosPhi,0.0), material.shininess*3.0);
+	vec3 specular = light.specular.xyz * material.specular.xyz * pow(max(cosPhi,0.0), material.shininess*3.0);// 最后乘以3.0作为改善镜面高光的微调
 	fragColor = vec4((ambient + diffuse + specular), 1.0);
 }
