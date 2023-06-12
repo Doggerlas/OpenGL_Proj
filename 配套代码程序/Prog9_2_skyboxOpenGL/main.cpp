@@ -89,7 +89,7 @@ void setupVertices(void) {
 
 void init(GLFWwindow* window) {
 	renderingProgram = Utils::createShaderProgram("vertShader.glsl", "fragShader.glsl");
-	renderingProgramCubeMap = Utils::createShaderProgram("vertCShader.glsl", "fragCShader.glsl");
+	renderingProgramCubeMap = Utils::createShaderProgram("vertCShader.glsl", "fragCShader.glsl");//注意这里
 
 	glfwGetFramebufferSize(window, &width, &height);
 	aspect = (float)width / (float)height;
@@ -97,8 +97,8 @@ void init(GLFWwindow* window) {
 
 	setupVertices();
 
-	brickTexture = Utils::loadTexture("brick1.jpg");
-	skyboxTexture = Utils::loadCubeMap("cubeMap"); // expects a folder name
+	brickTexture = Utils::loadTexture("brick1.jpg");// 场景中的环面
+	skyboxTexture = Utils::loadCubeMap("cubeMap");// 包含天空盒纹理的文件夹
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
 	torLocX = 0.0f; torLocY = 0.0f; torLocZ = 0.0f;
@@ -112,7 +112,7 @@ void display(GLFWwindow* window, double currentTime) {
 	vMat = glm::translate(glm::mat4(1.0f), glm::vec3(-cameraX, -cameraY, -cameraZ));
 
 	// draw cube map
-
+	// 准备首先绘制天空盒—注意，现在它的渲染程序不同了
 	glUseProgram(renderingProgramCubeMap);
 
 	vLoc = glGetUniformLocation(renderingProgramCubeMap, "v_matrix");
@@ -120,14 +120,14 @@ void display(GLFWwindow* window, double currentTime) {
 
 	projLoc = glGetUniformLocation(renderingProgramCubeMap, "p_matrix");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
-
+	//  初始化立方体的顶点缓冲区（这里不再需要纹理坐标缓冲区）
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
-
+	// 激活立方体贴图纹理
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
-
+	// 禁用深度测试，之后绘制立方体贴图 
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CCW);	// cube is CW, but we are viewing the inside
 	glDisable(GL_DEPTH_TEST);

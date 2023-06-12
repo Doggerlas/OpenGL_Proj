@@ -34,11 +34,13 @@ void Sphere::init(int prec) {
 			texCoords[i*(prec + 1) + j] = glm::vec2(((float)j / prec), ((float)i / prec));
 			normals[i*(prec + 1) + j] = glm::vec3(x, y, z);
 
-			// calculate tangent vector
-			if (((x == 0) && (y == 1) && (z == 0)) || ((x == 0) && (y == -1) && (z == 0))) {
+			// 计算切向量
+			if (((x == 0) && (y == 1) && (z == 0)) || ((x == 0) && (y == -1) && (z == 0))) {// 如果是北极或南极，
 				tangents[i*(prec + 1) + j] = glm::vec3(0.0f, 0.0f, -1.0f);
 			}
+			// 设置切向量为 -Z 轴
 			else {
+				// 否则，计算切向量
 				tangents[i*(prec + 1) + j] = glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(x, y, z));
 			}
 		}

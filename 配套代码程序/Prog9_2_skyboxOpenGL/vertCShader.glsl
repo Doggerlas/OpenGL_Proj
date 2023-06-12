@@ -9,7 +9,7 @@ layout (binding = 0) uniform samplerCube samp;
 
 void main(void)
 {
-	tc = position;
-	mat4 v3_matrix = mat4(mat3(v_matrix));
+	tc = position;// 纹理坐标就是顶点坐标
+	mat4 v3_matrix = mat4(mat3(v_matrix));// 从视图矩阵中删除平移
 	gl_Position = p_matrix * v3_matrix * vec4(position,1.0);
 }

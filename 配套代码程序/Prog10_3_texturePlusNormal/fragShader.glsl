@@ -37,35 +37,35 @@ vec3 calcNewNormal()
 {
 	vec3 normal = normalize(varyingNormal);
 	vec3 tangent = normalize(varyingTangent);
-	tangent = normalize(tangent - dot(tangent, normal) * normal);
+	tangent = normalize(tangent - dot(tangent, normal) * normal); //切向量垂直于法向量
 	vec3 bitangent = cross(tangent, normal);
-	mat3 tbn = mat3(tangent, bitangent, normal);
+	mat3 tbn = mat3(tangent, bitangent, normal);//// 用来变换到相机空间的TBN矩阵
 	vec3 retrievedNormal = texture(s,tc).xyz;
-	retrievedNormal = retrievedNormal * 2.0 - 1.0;
+	retrievedNormal = retrievedNormal * 2.0 - 1.0;/// 从RGB空间转换
 	vec3 newNormal = tbn * retrievedNormal;
 	newNormal = normalize(newNormal);
 	return newNormal;
 }
 
 void main(void)
-{	// normalize the light, normal, and view vectors:
+{	// 正规化光照向量，法向量和视图向量
 	vec3 L = normalize(varyingLightDir);
 	vec3 V = normalize(-varyingVertPos);
 
 	vec3 N = calcNewNormal();
 
-	// get the angle between the light and surface normal:
+	// 获得光照向量和曲面法向量之间的角度
 	float cosTheta = dot(L,N);
 	
-	// compute light reflection vector, with respect N:
+	// 为Blinn优化计算半向量
 	vec3 R = normalize(reflect(-L, N));
 	
-	// angle between the view vector and reflected light:
+	// 视图向量和反射光向量之间的角度
 	float cosPhi = dot(V,R);
 
 	vec4 texC = texture(t,tc);
 	
-	// compute ADS contributions with surface texture image:
+	// 计算ADS贡献（每个像素）
 	fragColor = globalAmbient + light.ambient * texC
 	+ light.diffuse * texC * max(cosTheta,0.0)
 	+ light.specular * texC * pow(max(cosPhi,0.0), material.shininess);

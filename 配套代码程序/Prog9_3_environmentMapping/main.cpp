@@ -137,34 +137,34 @@ void display(GLFWwindow* window, double currentTime) {
 	// draw scene (in this case it is just a torus)
 
 	glUseProgram(renderingProgram);
-
+	// 矩阵变换的统一变量位置，包括法向量的变换
 	mvLoc = glGetUniformLocation(renderingProgram, "mv_matrix");
 	projLoc = glGetUniformLocation(renderingProgram, "proj_matrix");
 	nLoc = glGetUniformLocation(renderingProgram, "normalMat");
-
+	// 构建MODEL矩阵，如前
 	rotAmt += 0.01f;
 	mMat = glm::translate(glm::mat4(1.0f), glm::vec3(torLocX, torLocY, torLocZ));
 	mMat = glm::rotate(mMat, rotAmt, glm::vec3(1.0f, 0.0f, 0.0f));
 	
 	mvMat = vMat * mMat;
-
+	// 构建MODEL-VIEW矩阵，如前
 	invTrMat = glm::transpose(glm::inverse(mvMat));
-
+	// 法向量变换现在在统一变量中
 	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 	glUniformMatrix4fv(nLoc, 1, GL_FALSE, glm::value_ptr(invTrMat));
-
+	// 激活环面顶点缓冲区，如前
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
-
+	// 我们需要激活环面法向量缓冲区
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(1);
-
+	// 环面纹理现在是立方体贴图 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
-
+	// 绘制环面的过程未做更改
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CCW);

@@ -158,9 +158,10 @@ GLuint Utils::createShaderProgram(const char *vp, const char *tCS, const char* t
 	finalizeShaderProgram(vtgfprogram);
 	return vtgfprogram;
 }
-
+// 读入6个单独的立方体面图像文件
 GLuint Utils::loadCubeMap(const char *mapDir) {
 	GLuint textureRef;
+	//  假设6个纹理图像文件xp、xn、yp、yn、zp、zn都是JPG格式图像
 	string xp = mapDir; xp = xp + "/xp.jpg";
 	string xn = mapDir; xn = xn + "/xn.jpg";
 	string yp = mapDir; yp = yp + "/yp.jpg";
@@ -171,7 +172,7 @@ GLuint Utils::loadCubeMap(const char *mapDir) {
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
 	if (textureRef == 0) cout << "didnt find cube map image file" << endl;
 	//	glBindTexture(GL_TEXTURE_CUBE_MAP, textureRef);
-	// reduce seams
+	// 减少接缝
 	//	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	//	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	//	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);

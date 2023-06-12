@@ -23,28 +23,28 @@ GLuint renderingProgram1, renderingProgram2;
 GLuint vao[numVAOs];
 GLuint vbo[numVBOs];
 
-ImportedModel pyramid("pyr.obj");
-Torus myTorus(0.6f, 0.4f, 48);
+ImportedModel pyramid("pyr.obj");// 定义金字塔
+Torus myTorus(0.6f, 0.4f, 48);// 定义环面
 int numPyramidVertices, numTorusVertices, numTorusIndices;
-
+// 环面、金字塔、相机和光源的位置
 glm::vec3 torusLoc(1.6f, 0.0f, -0.3f);
 glm::vec3 pyrLoc(-1.0f, 0.1f, 0.3f);
 glm::vec3 cameraLoc(0.0f, 0.2f, 6.0f);
 glm::vec3 lightLoc(-3.8f, 2.2f, 1.1f);
 
-// white light
+// 场景中所使用白光的属性(全局光和位置光)
 float globalAmbient[4] = { 0.7f, 0.7f, 0.7f, 1.0f };
 float lightAmbient[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 float lightDiffuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 float lightSpecular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-// gold material
+// 金字塔的黄金材质
 float* gMatAmb = Utils::goldAmbient();
 float* gMatDif = Utils::goldDiffuse();
 float* gMatSpe = Utils::goldSpecular();
 float gMatShi = Utils::goldShininess();
 
-// bronze material
+// 环面的青铜材质
 float* bMatAmb = Utils::bronzeAmbient();
 float* bMatDif = Utils::bronzeDiffuse();
 float* bMatSpe = Utils::bronzeSpecular();
@@ -53,7 +53,7 @@ float bMatShi = Utils::bronzeShininess();
 float thisAmb[4], thisDif[4], thisSpe[4], matAmb[4], matDif[4], matSpe[4];
 float thisShi, matShi;
 
-// shadow stuff
+// 阴影相关变量
 int scSizeX, scSizeY;
 GLuint shadowTex, shadowBuffer;
 glm::mat4 lightVmatrix;
@@ -62,7 +62,7 @@ glm::mat4 shadowMVP1;
 glm::mat4 shadowMVP2;
 glm::mat4 b;
 
-// variable allocation for display
+// 在display()中将光照传入着色器的变量
 GLuint mvLoc, projLoc, nLoc, sLoc;
 int width, height;
 float aspect;
@@ -110,7 +110,8 @@ void installLights(int renderingProgram, glm::mat4 vMatrix) {
 
 void setupVertices(void) {
 
-	// pyramid definition
+	// 与之前的例子相同。这个函数用来创建VAO和VBO
+	// 之后将环面及金字塔的顶点与法向量读入缓冲区
 
 	numPyramidVertices = pyramid.getNumVertices();
 	std::vector<glm::vec3> vert = pyramid.getVertices();
@@ -127,8 +128,6 @@ void setupVertices(void) {
 		pyramidNvalues.push_back((norm[i]).y);
 		pyramidNvalues.push_back((norm[i]).z);
 	}
-
-	// torus definition
 
 	numTorusVertices = myTorus.getNumVertices();
 	numTorusIndices = myTorus.getNumIndices();
@@ -172,9 +171,9 @@ void setupShadowBuffers(GLFWwindow* window) {
 	glfwGetFramebufferSize(window, &width, &height);
 	scSizeX = width;
 	scSizeY = height;
-
+	// 创建自定义帧缓冲区
 	glGenFramebuffers(1, &shadowBuffer);
-
+	// 创建阴影纹理并让它存储深度信息
 	glGenTextures(1, &shadowTex);
 	glBindTexture(GL_TEXTURE_2D, shadowTex);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32,
@@ -208,51 +207,56 @@ void init(GLFWwindow* window) {
 }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+// display()函数分别管理第1轮需要使用的自定义帧缓冲区
+// 以及第2轮需要使用的阴影纹理初始化过程。阴影相关新功能已高亮
 void display(GLFWwindow* window, double currentTime) {
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	currentLightPos = glm::vec3(lightLoc);
-
-	lightVmatrix = glm::lookAt(currentLightPos, origin, up);
+	// 从光源视角初始化视觉矩阵以及透视矩阵，以便在第1轮中使用
+	lightVmatrix = glm::lookAt(currentLightPos, origin, up);// 从光源到原点的矩阵
 	lightPmatrix = glm::perspective(toRadians(60.0f), aspect, 0.1f, 1000.0f);
-
+	// 使用自定义帧缓冲区，将阴影纹理附着到其上
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, shadowTex, 0);
-
+	// 关闭绘制颜色，同时开启深度计算
 	glDrawBuffer(GL_NONE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_POLYGON_OFFSET_FILL);	// for reducing
 	glPolygonOffset(2.0f, 4.0f);		//  shadow artifacts
 
 	passOne();
-
+	// 使用显示缓冲区，并重新开启绘制
 	glDisable(GL_POLYGON_OFFSET_FILL);	// artifact reduction, continued
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, shadowTex);
 
-	glDrawBuffer(GL_FRONT);
+	glDrawBuffer(GL_FRONT);// 重新开启绘制颜色
 
 	passTwo();
 }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+// 接下来是第1轮和第2轮的代码
+// 这些代码和之前的大体相同
+// 与阴影相关的新增代码已高亮
 void passOne(void) {
+	// renderingProgram1包含了第1轮中的顶点着色器和片段着色器
 	glUseProgram(renderingProgram1);
 
 	// draw the torus
-
+	// 接下来的代码段通过从光源角度渲染环面获得深度缓冲区
 	mMat = glm::translate(glm::mat4(1.0f), torusLoc);
+	// 轻微旋转以便查看
 	mMat = glm::rotate(mMat, toRadians(25.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
+	// 我们从光源角度绘制，因此使用光源的P、V矩阵
 	shadowMVP1 = lightPmatrix * lightVmatrix * mMat;
 	sLoc = glGetUniformLocation(renderingProgram1, "shadowMVP");
 	glUniformMatrix4fv(sLoc, 1, GL_FALSE, glm::value_ptr(shadowMVP1));
-
+	// 在第1轮中我们只需要环面的顶点缓冲区，而不需要它的纹理或法向量
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
@@ -263,10 +267,11 @@ void passOne(void) {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[4]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[4]);// vbo[4]包含环面索引
 	glDrawElements(GL_TRIANGLES, numTorusIndices, GL_UNSIGNED_INT, 0);
 
-	// draw the pyramid
+	// 对金字塔做同样的处理(但不清除GL_DEPTH_BUFFER_BIT)
+	// 金字塔没有索引，因此我们使用glDrawArrays()而非glDrawElements()
 
 	mMat = glm::translate(glm::mat4(1.0f), pyrLoc);
 	mMat = glm::rotate(mMat, toRadians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -290,14 +295,15 @@ void passOne(void) {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 void passTwo(void) {
-	glUseProgram(renderingProgram2);
-
+	glUseProgram(renderingProgram2);// 第2轮顶点着色器和片段着色器
+	// 绘制环面，这次我们需要加入光照、材质、法向量等
+	// 同时我们需要为相机空间以及光照空间都提供MVP变换
 	mvLoc = glGetUniformLocation(renderingProgram2, "mv_matrix");
 	projLoc = glGetUniformLocation(renderingProgram2, "proj_matrix");
 	nLoc = glGetUniformLocation(renderingProgram2, "norm_matrix");
 	sLoc = glGetUniformLocation(renderingProgram2, "shadowMVP");
 
-	// draw the torus
+	// 环面是黄铜材质
 
 	thisAmb[0] = bMatAmb[0]; thisAmb[1] = bMatAmb[1]; thisAmb[2] = bMatAmb[2];  // bronze
 	thisDif[0] = bMatDif[0]; thisDif[1] = bMatDif[1]; thisDif[2] = bMatDif[2];
@@ -305,27 +311,28 @@ void passTwo(void) {
 	thisShi = bMatShi;
 
 	vMat = glm::translate(glm::mat4(1.0f), glm::vec3(-cameraLoc.x, -cameraLoc.y, -cameraLoc.z));
-
+	// 轻微旋转以便查看
 	mMat = glm::translate(glm::mat4(1.0f), torusLoc);
 	mMat = glm::rotate(mMat, toRadians(25.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	currentLightPos = glm::vec3(lightLoc);
 	installLights(renderingProgram2, vMat);
-
+	// 构建相机视角环面的MV矩阵
 	mvMat = vMat * mMat;
 	invTrMat = glm::transpose(glm::inverse(mvMat));
+	// 构建光源视角环面的MV矩阵
 	shadowMVP2 = b * lightPmatrix * lightVmatrix * mMat;
 
 	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 	glUniformMatrix4fv(nLoc, 1, GL_FALSE, glm::value_ptr(invTrMat));
 	glUniformMatrix4fv(sLoc, 1, GL_FALSE, glm::value_ptr(shadowMVP2));
-
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+	// 初始化环面顶点和法向量缓冲区()
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);// 环面顶点
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);// 环面法向量
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(1);
 
@@ -337,7 +344,7 @@ void passTwo(void) {
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[4]);
 	glDrawElements(GL_TRIANGLES, numTorusIndices, GL_UNSIGNED_INT, 0);
-
+	// 对黄金金字塔重复同样步骤
 	// draw the pyramid
 
 	thisAmb[0] = gMatAmb[0]; thisAmb[1] = gMatAmb[1]; thisAmb[2] = gMatAmb[2];  // gold

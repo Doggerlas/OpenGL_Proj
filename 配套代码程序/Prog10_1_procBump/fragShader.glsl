@@ -3,7 +3,7 @@
 in vec3 varyingNormal;
 in vec3 varyingLightDir;
 in vec3 varyingVertPos;
-
+// 与Phong着色相同，但添加此输入顶点属性
 in vec3 originalVertex;
 
 out vec4 fragColor;
@@ -35,17 +35,18 @@ void main(void)
 	vec3 N = normalize(varyingNormal);
 	vec3 V = normalize(-varyingVertPos);
 	
-	float a = 0.25;		// controls depth of bumps
-	float b = 100.0;	// controls width of bumps
+	//  添加如下代码以扰乱传入的法向量 
+	float a = 0.25;	// a 控制凸起的高度 
+	float b = 100.0; // b 控制凸起的宽度 
 	float x = originalVertex.x;
-	float y = originalVertex.y;
+	float y = originalVertex.y; 
 	float z = originalVertex.z;
-	N.x = varyingNormal.x + a*sin(b*x);
+	N.x = varyingNormal.x + a*sin(b*x);	// 使用正弦函数扰乱传入法向量	
 	N.y = varyingNormal.y + a*sin(b*y);
-	N.z = varyingNormal.z + a*sin(b*z);
+	N.z = varyingNormal.z + a*sin(b*z); 
 	N = normalize(N);
 	
-	// compute light reflection vector, with respect N:
+	// 光照计算以及输出的fragColor（未更改）现在使用扰动过的法向量N
 	vec3 R = normalize(reflect(-L, N));
 	
 	// get the angle between the light and surface normal:

@@ -5,7 +5,7 @@ layout (location = 1) in vec3 vertNormal;
 out vec3 varyingNormal;
 out vec3 varyingLightDir;
 out vec3 varyingVertPos;
-
+// 与Phong着色相同，但添加此输出顶点属性
 out vec3 originalVertex;
 
 struct PositionalLight
@@ -32,7 +32,7 @@ void main(void)
 {	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
 	varyingLightDir = light.position - varyingVertPos;
 	varyingNormal = (norm_matrix * vec4(vertNormal,1.0)).xyz;
-	
+	// 添加原始顶点，传递以进行插值
 	originalVertex = vertPos;
 
 	gl_Position = proj_matrix * mv_matrix * vec4(vertPos,1.0);
